@@ -1,0 +1,22 @@
+---
+- name: install go-server 
+  yum: pkg=go-server-{{ go_version}} state=installed
+  sudo: yes
+  register: install
+  notify:
+  - restart go-server
+ 
+- debug: msg=" DEBUG {{install}}  GOCD={{ gocd }}"
+
+- name: Creating server defaults.
+  template: "src=go-server-defaults dest=/etc/default/go-server mode=0644 owner=root group=root"
+  sudo: yes
+  notify:
+    - restart go-server
+
+- name: Create base work directory
+  file: path="{{ gocd.server.work_dir_base }}/go-server/" mode=0755 owner=go group=go state=directory recurse=true
+  sudo: yes
+  notify:
+    - restart go-server
+

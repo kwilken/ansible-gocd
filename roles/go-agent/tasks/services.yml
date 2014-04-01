@@ -1,0 +1,23 @@
+- name: Creating additional agents - directory structure.
+  file: path="/var/lib/go-agent{{item}}" mode=0755 owner=go group=go state=directory
+  with_sequence: "count={{ gocd.agent.instances}}"
+  sudo: yes
+
+- file: path="{{ gocd.agent.work_dir_base }}/go-agent{{item}}/config" mode=0755 owner=go group=go state=directory
+  sudo: yes
+
+- name: Creating additional agents - defaults.
+  template: "src=go-agent-defaults dest=/etc/default/go-agent{{ item }} mode=0644 owner=root group=root"
+  sudo: yes
+
+- name: Creating additional agents - service.
+  template: "src=go-agent-service dest=/etc/init.d/go-agent{{ item }} mode=0755 owner=root group=root"
+  sudo: yes
+
+- name: Creating additional agents - bash script.
+  template: "src=go-agent-sh dest=/usr/share/go-agent/agent{{ item }}.sh mode=0755 owner=root group=root"
+  sudo: yes
+
+- name: Ensure Go-agents are started and run on startup.
+  service: "name=go-agent{{item}} state=started enabled=yes"
+  sudo: yes

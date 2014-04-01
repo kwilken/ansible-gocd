@@ -31,6 +31,12 @@ Vagrant.configure("2") do |config|
 		docker.image = "tlalexan/vagrant-centos:latest"
 	end
 
+  # Stop internal firewall of vm
+  config.vm.provision :shell, {
+      privileged: true,
+      inline: "service firewalld stop"
+    }
+
   # Support testing roles by themselves.  You can't specify this on command line, but can via environment variable.
   # This assumes you've checked out into a directory matching the role name (ansible-gocd)
   ENV['ANSIBLE_ROLES_PATH'] = '..'

@@ -1,0 +1,12 @@
+---
+   go_version: 13.4.1-18342 
+   gocd:
+      agent:
+         instances: "{{ ansible_processor_count * ansible_processor_cores }}"
+         work_dir_base: "/opt/go"
+      server:
+         host: "{{ ansible_default_ipv4.address }}"
+         port: "8153"
+         port_ssl: "8154"
+         autoregister_key: "this-is-insecure"
+         work_dir_base: "/opt/go"

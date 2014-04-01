@@ -1,4 +1,0 @@
----
-   - include: go-common.yml tags=server,agent
-   - include: go-server.yml tags=server
-   - include: go-agent.yml tags=agent

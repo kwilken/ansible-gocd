@@ -1,0 +1,9 @@
+GO_SERVER_PORT={{ gocd.server.port }}
+export GO_SERVER_PORT
+GO_SERVER_SSL_PORT={{ gocd.server.port_ssl }}
+export GO_SERVER_SSL_PORT
+SERVER_WORK_DIR={{ gocd.server.work_dir_base }}/go-server
+export SERVER_WORK_DIR
+DAEMON=Y
+JAVA_HOME=/usr/lib/jvm/java/jre
+export JAVA_HOME
